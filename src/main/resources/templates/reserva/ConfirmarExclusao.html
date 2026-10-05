@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cancelar reserva</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav class="menu">
+    <a th:href="@{/}" class="ativo">Reservas</a>
+    <a th:href="@{/veiculos}">Veículos</a>
+    <a th:href="@{/pessoas}">Pessoas</a>
+</nav>
+<div class="container">
+    <h1>Cancelar reserva</h1>
+    <p>Tem certeza que deseja cancelar (excluir) esta reserva?</p>
+
+    <ul class="detalhes">
+        <li><strong>Id:</strong> <span th:text="${reserva.id}"></span></li>
+        <li><strong>Veículo:</strong> <span th:text="${placa}"></span></li>
+        <li><strong>Pessoa:</strong> <span th:text="${pessoaNome}"></span></li>
+        <li><strong>Período:</strong>
+            <span th:text="${#temporals.format(reserva.dataInicio, 'dd/MM/yyyy') + ' a ' + #temporals.format(reserva.dataFim, 'dd/MM/yyyy')}"></span>
+        </li>
+    </ul>
+
+    <form th:action="@{/reservas/{id}/excluir(id=${reserva.id})}" method="post">
+        <button type="submit" class="btn btn-danger">Confirmar cancelamento</button>
+        <a th:href="@{/}" class="btn">Voltar</a>
+    </form>
+</div>
+</body>
+</html>

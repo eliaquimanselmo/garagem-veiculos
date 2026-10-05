@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmar exclusão</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav class="menu">
+    <a th:href="@{/}">Reservas</a>
+    <a th:href="@{/veiculos}">Veículos</a>
+    <a th:href="@{/pessoas}" class="ativo">Pessoas</a>
+</nav>
+<div class="container">
+    <h1>Confirmar exclusão</h1>
+    <p>Tem certeza que deseja excluir esta pessoa? Esta ação não pode ser desfeita.</p>
+
+    <ul class="detalhes">
+        <li><strong>Id:</strong> <span th:text="${pessoa.id}"></span></li>
+        <li><strong>Nome:</strong> <span th:text="${pessoa.nome}"></span></li>
+        <li><strong>CPF:</strong> <span th:text="${pessoa.cpf}"></span></li>
+        <li><strong>E-mail:</strong> <span th:text="${pessoa.email}"></span></li>
+        <li><strong>Telefone:</strong> <span th:text="${pessoa.telefone}"></span></li>
+    </ul>
+
+    <form th:action="@{/pessoas/{id}/excluir(id=${pessoa.id})}" method="post">
+        <button type="submit" class="btn btn-danger">Confirmar exclusão</button>
+        <a th:href="@{/pessoas}" class="btn">Cancelar</a>
+    </form>
+</div>
+</body>
+</html>

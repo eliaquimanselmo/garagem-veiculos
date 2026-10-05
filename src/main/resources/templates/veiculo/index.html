@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Veículos - Garagem de Veículos</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav class="menu">
+    <a th:href="@{/}">Reservas</a>
+    <a th:href="@{/veiculos}" class="ativo">Veículos</a>
+    <a th:href="@{/pessoas}">Pessoas</a>
+</nav>
+<div class="container">
+    <h1>Veículos cadastrados</h1>
+    <a class="btn btn-primary" th:href="@{/veiculos/novo}">+ Novo veículo</a>
+
+    <table class="tabela" th:if="${not #lists.isEmpty(veiculos)}">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Placa</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Ano</th>
+            <th>Cor</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="veiculo : ${veiculos}">
+            <td th:text="${veiculo.id}"></td>
+            <td th:text="${veiculo.placa}"></td>
+            <td th:text="${veiculo.marca}"></td>
+            <td th:text="${veiculo.modelo}"></td>
+            <td th:text="${veiculo.ano}"></td>
+            <td th:text="${veiculo.cor}"></td>
+            <td class="acoes">
+                <a th:href="@{/veiculos/{id}/editar(id=${veiculo.id})}">Editar</a>
+                <a class="excluir" th:href="@{/veiculos/{id}/excluir(id=${veiculo.id})}">Excluir</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p th:if="${#lists.isEmpty(veiculos)}">Nenhum veículo cadastrado ainda.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${reserva.id == 0} ? 'Nova Reserva' : 'Editar Reserva'">Formulário de Reserva</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav class="menu">
+    <a th:href="@{/}" class="ativo">Reservas</a>
+    <a th:href="@{/veiculos}">Veículos</a>
+    <a th:href="@{/pessoas}">Pessoas</a>
+</nav>
+<div class="container">
+    <h1 th:text="${reserva.id == 0} ? 'Nova reserva' : 'Editar reserva'">Formulário</h1>
+
+    <form th:action="${reserva.id == 0} ? @{/reservas/novo} : @{/reservas/{id}/editar(id=${reserva.id})}"
+          th:object="${reserva}" method="post" class="form">
+
+        <input type="hidden" th:field="*{id}"/>
+
+        <!-- Mensagem geral (ex.: conflito de período) -->
+        <div class="alerta-erro" th:if="${#fields.hasGlobalErrors()}">
+            <p th:each="erro : ${#fields.globalErrors()}" th:text="${erro}">Erro</p>
+        </div>
+
+        <div class="campo">
+            <label for="veiculoId">Veículo</label>
+            <select id="veiculoId" th:field="*{veiculoId}">
+                <option value="">Selecione um veículo...</option>
+                <option th:each="v : ${veiculos}" th:value="${v.id}"
+                        th:text="${v.placa + ' - ' + v.marca + ' ' + v.modelo}">ABC-1234</option>
+            </select>
+            <span class="erro" th:if="${#fields.hasErrors('veiculoId')}" th:errors="*{veiculoId}"></span>
+        </div>
+
+        <div class="campo">
+            <label for="pessoaId">Pessoa</label>
+            <select id="pessoaId" th:field="*{pessoaId}">
+                <option value="">Selecione uma pessoa...</option>
+                <option th:each="p : ${pessoas}" th:value="${p.id}" th:text="${p.nome}">Nome</option>
+            </select>
+            <span class="erro" th:if="${#fields.hasErrors('pessoaId')}" th:errors="*{pessoaId}"></span>
+        </div>
+
+        <div class="campo">
+            <label for="dataInicio">Data de início</label>
+            <input type="date" id="dataInicio" th:field="*{dataInicio}"/>
+            <span class="erro" th:if="${#fields.hasErrors('dataInicio')}" th:errors="*{dataInicio}"></span>
+        </div>
+
+        <div class="campo">
+            <label for="dataFim">Data de fim</label>
+            <input type="date" id="dataFim" th:field="*{dataFim}"/>
+            <span class="erro" th:if="${#fields.hasErrors('dataFim')}" th:errors="*{dataFim}"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        <a th:href="@{/}" class="btn">Cancelar</a>
+    </form>
+</div>
+</body>
+</html>

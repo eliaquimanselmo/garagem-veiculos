@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "veiculoId": 1,
+    "pessoaId": 1,
+    "dataInicio": "2026-10-10",
+    "dataFim": "2026-10-15"
+  },
+  {
+    "id": 2,
+    "veiculoId": 2,
+    "pessoaId": 2,
+    "dataInicio": "2026-10-01",
+    "dataFim": "2026-10-08"
+  }
+]

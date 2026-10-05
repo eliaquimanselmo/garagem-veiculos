@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservas - Garagem de Veículos</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav class="menu">
+    <a th:href="@{/}" class="ativo">Reservas</a>
+    <a th:href="@{/veiculos}">Veículos</a>
+    <a th:href="@{/pessoas}">Pessoas</a>
+</nav>
+<div class="container largo">
+    <h1>Reservas</h1>
+    <a class="btn btn-primary" th:href="@{/reservas/novo}">+ Nova reserva</a>
+
+    <h2>Reservas cadastradas</h2>
+    <table class="tabela" th:if="${not #lists.isEmpty(reservas)}">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Veículo</th>
+            <th>Pessoa</th>
+            <th>Período</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="r : ${reservas}">
+            <td th:text="${r.id}"></td>
+            <td th:text="${r.placa + ' - ' + r.modelo}"></td>
+            <td th:text="${r.pessoaNome}"></td>
+            <td th:text="${#temporals.format(r.dataInicio, 'dd/MM/yyyy') + ' a ' + #temporals.format(r.dataFim, 'dd/MM/yyyy')}"></td>
+            <td class="acoes">
+                <a th:href="@{/reservas/{id}/editar(id=${r.id})}">Editar</a>
+                <a class="excluir" th:href="@{/reservas/{id}/excluir(id=${r.id})}">Cancelar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <p th:if="${#lists.isEmpty(reservas)}">Nenhuma reserva cadastrada ainda.</p>
+
+    <h2>Situação dos veículos hoje (<span th:text="${#temporals.format(hoje, 'dd/MM/yyyy')}"></span>)</h2>
+    <table class="tabela" th:if="${not #lists.isEmpty(statusVeiculos)}">
+        <thead>
+        <tr>
+            <th>Placa</th>
+            <th>Veículo</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="s : ${statusVeiculos}">
+            <td th:text="${s.veiculo.placa}"></td>
+            <td th:text="${s.veiculo.marca + ' ' + s.veiculo.modelo}"></td>
+            <td>
+                <span th:if="${s.reservado}" class="badge badge-reservado"
+                      th:text="${s.reservadoPara != null ? 'Reservado (' + s.reservadoPara + ')' : 'Reservado'}">Reservado</span>
+                <span th:unless="${s.reservado}" class="badge badge-disponivel">Disponível</span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <p th:if="${#lists.isEmpty(statusVeiculos)}">Nenhum veículo cadastrado ainda.</p>
+</div>
+</body>
+</html>

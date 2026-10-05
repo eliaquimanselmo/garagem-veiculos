@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmar exclusão</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav class="menu">
+    <a th:href="@{/}">Reservas</a>
+    <a th:href="@{/veiculos}" class="ativo">Veículos</a>
+    <a th:href="@{/pessoas}">Pessoas</a>
+</nav>
+<div class="container">
+    <h1>Confirmar exclusão</h1>
+    <p>Tem certeza que deseja excluir este veículo? Esta ação não pode ser desfeita.</p>
+
+    <ul class="detalhes">
+        <li><strong>Id:</strong> <span th:text="${veiculo.id}"></span></li>
+        <li><strong>Placa:</strong> <span th:text="${veiculo.placa}"></span></li>
+        <li><strong>Marca:</strong> <span th:text="${veiculo.marca}"></span></li>
+        <li><strong>Modelo:</strong> <span th:text="${veiculo.modelo}"></span></li>
+        <li><strong>Ano:</strong> <span th:text="${veiculo.ano}"></span></li>
+        <li><strong>Cor:</strong> <span th:text="${veiculo.cor}"></span></li>
+    </ul>
+
+    <form th:action="@{/veiculos/{id}/excluir(id=${veiculo.id})}" method="post">
+        <button type="submit" class="btn btn-danger">Confirmar exclusão</button>
+        <a th:href="@{/veiculos}" class="btn">Cancelar</a>
+    </form>
+</div>
+</body>
+</html>

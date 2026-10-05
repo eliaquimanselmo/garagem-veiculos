@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pessoas - Garagem de Veículos</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav class="menu">
+    <a th:href="@{/}">Reservas</a>
+    <a th:href="@{/veiculos}">Veículos</a>
+    <a th:href="@{/pessoas}" class="ativo">Pessoas</a>
+</nav>
+<div class="container">
+    <h1>Pessoas cadastradas</h1>
+    <a class="btn btn-primary" th:href="@{/pessoas/novo}">+ Nova pessoa</a>
+
+    <table class="tabela" th:if="${not #lists.isEmpty(pessoas)}">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>E-mail</th>
+            <th>Telefone</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pessoa : ${pessoas}">
+            <td th:text="${pessoa.id}"></td>
+            <td th:text="${pessoa.nome}"></td>
+            <td th:text="${pessoa.cpf}"></td>
+            <td th:text="${pessoa.email}"></td>
+            <td th:text="${pessoa.telefone}"></td>
+            <td class="acoes">
+                <a th:href="@{/pessoas/{id}/editar(id=${pessoa.id})}">Editar</a>
+                <a class="excluir" th:href="@{/pessoas/{id}/excluir(id=${pessoa.id})}">Excluir</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p th:if="${#lists.isEmpty(pessoas)}">Nenhuma pessoa cadastrada ainda.</p>
+</div>
+</body>
+</html>

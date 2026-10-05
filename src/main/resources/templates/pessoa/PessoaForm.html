@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pessoa.id == 0} ? 'Nova Pessoa' : 'Editar Pessoa'">Formulário de Pessoa</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav class="menu">
+    <a th:href="@{/}">Reservas</a>
+    <a th:href="@{/veiculos}">Veículos</a>
+    <a th:href="@{/pessoas}" class="ativo">Pessoas</a>
+</nav>
+<div class="container">
+    <h1 th:text="${pessoa.id == 0} ? 'Cadastrar pessoa' : 'Editar pessoa'">Formulário</h1>
+
+    <form th:action="${pessoa.id == 0} ? @{/pessoas/novo} : @{/pessoas/{id}/editar(id=${pessoa.id})}"
+          th:object="${pessoa}" method="post" class="form">
+
+        <input type="hidden" th:field="*{id}"/>
+
+        <div class="campo">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" th:field="*{nome}"/>
+            <span class="erro" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+        </div>
+
+        <div class="campo">
+            <label for="cpf">CPF</label>
+            <input type="text" id="cpf" th:field="*{cpf}"/>
+            <span class="erro" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}"></span>
+        </div>
+
+        <div class="campo">
+            <label for="email">E-mail</label>
+            <input type="text" id="email" th:field="*{email}"/>
+            <span class="erro" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+        </div>
+
+        <div class="campo">
+            <label for="telefone">Telefone (opcional)</label>
+            <input type="text" id="telefone" th:field="*{telefone}"/>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        <a th:href="@{/pessoas}" class="btn">Cancelar</a>
+    </form>
+</div>
+</body>
+</html>

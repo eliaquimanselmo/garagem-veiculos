@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${veiculo.id == 0} ? 'Novo Veículo' : 'Editar Veículo'">Formulário de Veículo</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav class="menu">
+    <a th:href="@{/}">Reservas</a>
+    <a th:href="@{/veiculos}" class="ativo">Veículos</a>
+    <a th:href="@{/pessoas}">Pessoas</a>
+</nav>
+<div class="container">
+    <h1 th:text="${veiculo.id == 0} ? 'Cadastrar veículo' : 'Editar veículo'">Formulário</h1>
+
+    <form th:action="${veiculo.id == 0} ? @{/veiculos/novo} : @{/veiculos/{id}/editar(id=${veiculo.id})}"
+          th:object="${veiculo}" method="post" class="form">
+
+        <input type="hidden" th:field="*{id}"/>
+
+        <div class="campo">
+            <label for="placa">Placa</label>
+            <input type="text" id="placa" th:field="*{placa}"/>
+            <span class="erro" th:if="${#fields.hasErrors('placa')}" th:errors="*{placa}"></span>
+        </div>
+
+        <div class="campo">
+            <label for="marca">Marca</label>
+            <input type="text" id="marca" th:field="*{marca}"/>
+            <span class="erro" th:if="${#fields.hasErrors('marca')}" th:errors="*{marca}"></span>
+        </div>
+
+        <div class="campo">
+            <label for="modelo">Modelo</label>
+            <input type="text" id="modelo" th:field="*{modelo}"/>
+            <span class="erro" th:if="${#fields.hasErrors('modelo')}" th:errors="*{modelo}"></span>
+        </div>
+
+        <div class="campo">
+            <label for="ano">Ano</label>
+            <input type="text" id="ano" th:field="*{ano}"/>
+            <span class="erro" th:if="${#fields.hasErrors('ano')}" th:errors="*{ano}"></span>
+        </div>
+
+        <div class="campo">
+            <label for="cor">Cor (opcional)</label>
+            <input type="text" id="cor" th:field="*{cor}"/>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        <a th:href="@{/veiculos}" class="btn">Cancelar</a>
+    </form>
+</div>
+</body>
+</html>
